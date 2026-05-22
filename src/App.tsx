@@ -9,6 +9,7 @@ import { FilterStatus } from './types/FilterStatus';
 
 import cn from 'classnames';
 import { ErrorClient } from './utils/errorsClient';
+import { FilterStatusValues } from './utils/filterStatusValues';
 import { deleteTodo } from './api/todos';
 
 import { Todolist } from './components/Todolist/Todolist';
@@ -43,11 +44,11 @@ export const App: React.FC = () => {
   }
 
   const visibleTodos = todos.filter(todo => {
-    if (filterStatus === 'active') {
+    if (filterStatus === FilterStatusValues.Active) {
       return !todo.completed;
     }
 
-    if (filterStatus === 'completed') {
+    if (filterStatus === FilterStatusValues.Completed) {
       return todo.completed;
     }
 

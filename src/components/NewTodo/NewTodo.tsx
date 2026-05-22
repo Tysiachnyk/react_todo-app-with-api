@@ -3,7 +3,7 @@ import { TodoItem } from '../../types/Todo';
 import { useState, useEffect } from 'react';
 import { USER_ID } from '../../api/todos';
 import { addTodo } from '../../api/todos';
-import { ErrorClient } from '../../utils/errorsClient';
+import { ErrorsValues } from '../../utils/errorsValues';
 
 type Props = {
   allCompleted: boolean;
@@ -40,7 +40,7 @@ export const NewTodo: React.FC<Props> = ({
     const title = newTodoTitle.trim();
 
     if (!title) {
-      setErrorMessage(ErrorClient.TitleShouldNotBeEmpty);
+      setErrorMessage(ErrorsValues.TitleShouldNotBeEmpty);
 
       return;
     }
@@ -66,7 +66,7 @@ export const NewTodo: React.FC<Props> = ({
         setNewTodoTitle('');
       })
       .catch(() => {
-        setErrorMessage(ErrorClient.UnableToAddTodo);
+        setErrorMessage(ErrorsValues.UnableToAddTodo);
       })
       .finally(() => {
         setTempTodo(null);

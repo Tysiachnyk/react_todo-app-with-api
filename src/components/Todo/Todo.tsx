@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { TodoItem } from '../../types/Todo';
 import { deleteTodo, updateTodo } from '../../api/todos';
-import { ErrorClient } from '../../utils/errorsClient';
+import { ErrorsValues } from '../../utils/errorsValues';
 import { useState } from 'react';
 
 type Props = {
@@ -33,7 +33,7 @@ export const Todo: React.FC<Props> = ({
         onDeleteTodo(todo.id);
       })
       .catch(() => {
-        setErrorMessage(ErrorClient.UnableToDeleteTodo);
+        setErrorMessage(ErrorsValues.UnableToDeleteTodo);
       })
       .finally(() => {
         setIsDeleting(false);
@@ -48,7 +48,7 @@ export const Todo: React.FC<Props> = ({
         onUpdateTodo(updatedTodo.id, { completed: updatedTodo.completed });
       })
       .catch(() => {
-        setErrorMessage(ErrorClient.UnableToUpdateTodo);
+        setErrorMessage(ErrorsValues.UnableToUpdateTodo);
       })
       .finally(() => {
         setIsUpdating(false);
@@ -83,7 +83,7 @@ export const Todo: React.FC<Props> = ({
         inputRef.current?.focus();
       })
       .catch(() => {
-        setErrorMessage(ErrorClient.UnableToUpdateTodo);
+        setErrorMessage(ErrorsValues.UnableToUpdateTodo);
       })
       .finally(() => {
         setIsUpdating(false);

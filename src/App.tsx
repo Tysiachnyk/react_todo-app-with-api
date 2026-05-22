@@ -8,7 +8,7 @@ import { TodoItem } from './types/Todo';
 import { FilterStatus } from './types/FilterStatus';
 
 import cn from 'classnames';
-import { ErrorClient } from './utils/errorsClient';
+import { ErrorsValues } from './utils/errorsValues';
 import { FilterStatusValues } from './utils/filterStatusValues';
 import { deleteTodo } from './api/todos';
 
@@ -36,7 +36,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     getTodos()
       .then(setTodos)
-      .catch(() => setErrorMessage(ErrorClient.UnableToLoadTodos));
+      .catch(() => setErrorMessage(ErrorsValues.UnableToLoadTodos));
   }, []);
 
   if (!USER_ID) {
@@ -84,7 +84,7 @@ export const App: React.FC = () => {
           .then(() =>
             setTodos(prev => prev.filter(prevTodo => prevTodo.id !== todo.id)),
           )
-          .catch(() => setErrorMessage(ErrorClient.UnableToDeleteTodo)),
+          .catch(() => setErrorMessage(ErrorsValues.UnableToDeleteTodo)),
       ),
     ).then(() => {
       inputRef.current?.focus();
@@ -105,7 +105,7 @@ export const App: React.FC = () => {
               ),
             );
           })
-          .catch(() => setErrorMessage(ErrorClient.UnableToUpdateTodo)),
+          .catch(() => setErrorMessage(ErrorsValues.UnableToUpdateTodo)),
       ),
     );
   };

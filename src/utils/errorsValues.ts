@@ -1,4 +1,4 @@
-export enum ErrorClient {
+export enum ErrorsValues {
   UnableToLoadTodos = 'Unable to load todos',
   UnableToUpdateTodo = 'Unable to update a todo',
   UnableToDeleteTodo = 'Unable to delete a todo',

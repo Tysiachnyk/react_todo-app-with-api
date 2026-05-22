@@ -8,6 +8,7 @@ import { TodoItem } from './types/Todo';
 import { FilterStatus } from './types/FilterStatus';
 
 import cn from 'classnames';
+import { ErrorClient } from './utils/errorsClient';
 import { deleteTodo } from './api/todos';
 
 import { Todolist } from './components/Todolist/Todolist';
@@ -34,7 +35,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     getTodos()
       .then(setTodos)
-      .catch(() => setErrorMessage('Unable to load todos'));
+      .catch(() => setErrorMessage(ErrorClient.UnableToLoadTodos));
   }, []);
 
   if (!USER_ID) {
@@ -79,8 +80,10 @@ export const App: React.FC = () => {
     Promise.allSettled(
       completedTodos.map(todo =>
         deleteTodo(todo.id)
-          .then(() => setTodos(prev => prev.filter(t => t.id !== todo.id)))
-          .catch(() => setErrorMessage('Unable to delete a todo')),
+          .then(() =>
+            setTodos(prev => prev.filter(prevTodo => prevTodo.id !== todo.id)),
+          )
+          .catch(() => setErrorMessage(ErrorClient.UnableToDeleteTodo)),
       ),
     ).then(() => {
       inputRef.current?.focus();
@@ -96,10 +99,12 @@ export const App: React.FC = () => {
         updateTodo(todo.id, { completed: newStatus })
           .then(updatedTodo => {
             setTodos(prev =>
-              prev.map(t => (t.id === updatedTodo.id ? updatedTodo : t)),
+              prev.map(prevTodo =>
+                prevTodo.id === updatedTodo.id ? updatedTodo : prevTodo,
+              ),
             );
           })
-          .catch(() => setErrorMessage('Unable to update a todo')),
+          .catch(() => setErrorMessage(ErrorClient.UnableToUpdateTodo)),
       ),
     );
   };

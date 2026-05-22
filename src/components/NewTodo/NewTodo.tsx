@@ -3,6 +3,7 @@ import { TodoItem } from '../../types/Todo';
 import { useState, useEffect } from 'react';
 import { USER_ID } from '../../api/todos';
 import { addTodo } from '../../api/todos';
+import { ErrorClient } from '../../utils/errorsClient';
 
 type Props = {
   allCompleted: boolean;
@@ -39,7 +40,7 @@ export const NewTodo: React.FC<Props> = ({
     const title = newTodoTitle.trim();
 
     if (!title) {
-      setErrorMessage('Title should not be empty');
+      setErrorMessage(ErrorClient.TitleShouldNotBeEmpty);
 
       return;
     }
@@ -65,7 +66,7 @@ export const NewTodo: React.FC<Props> = ({
         setNewTodoTitle('');
       })
       .catch(() => {
-        setErrorMessage('Unable to add a todo');
+        setErrorMessage(ErrorClient.UnableToAddTodo);
       })
       .finally(() => {
         setTempTodo(null);
